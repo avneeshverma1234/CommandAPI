@@ -41,7 +41,7 @@ public class CommandsControllerTests : IDisposable
 
     [Fact]
     public void GetAllCommands_ReturnsOneItem_WhenDBHasOneResource()
-    {
+    { 
 //Arrange
         mockRepo.Setup(repo =>
             repo.GetAllCommands()).Returns(GetCommands(1));
