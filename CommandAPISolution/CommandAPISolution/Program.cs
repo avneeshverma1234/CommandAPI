@@ -28,6 +28,8 @@ builder.Services.AddDbContext<CommandContext>(opt =>
 var app = builder.Build();
 
 
+var service = app.Services.GetService<CommandContext>();
+service.Database.Migrate();
 
 if (app.Environment.IsDevelopment())
 {
