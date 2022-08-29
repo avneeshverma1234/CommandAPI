@@ -24,7 +24,7 @@ public class CommandsController: ControllerBase
     [HttpGet]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public ActionResult<IEnumerable<CommandReadDto>> Get()
+    public ActionResult<IEnumerable<CommandReadDto>> GetAllCommands()
     {
         return Ok(mapper.Map<IEnumerable<CommandReadDto>>( this.commandApiRepo.GetAllCommands()));
     }
