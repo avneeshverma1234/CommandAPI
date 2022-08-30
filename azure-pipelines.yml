@@ -13,15 +13,24 @@ variables:
   buildConfiguration: 'Release'
 
 steps:
-- task: UseDotNet@2
-- script: dotnet build --configuration $(buildConfiguration)
-  displayName: 'dotnet build $(buildConfiguration) ./CommandAPISolution/CommandAPISolution.sln'
-- task: DotNetCoreCLI@2
-  displayName: 'dotnet test'
+- task: VSBuild@1
   inputs:
-     command: test
-     projects: '**/*Tests/*.csproj'
-     testRunTitle: 'xUNit Test Run'
+    solution: '$(solution)'
+    msbuildArgs: '/p:DeployOnBuild=true /p:SkipInvalidConfigurations=true'
+    platform: '$(buildPlatform)'
+    configuration: '$(buildConfiguration)'
+
+- task: VSTest@2
+  inputs:
+    platform: '$(buildPlatform)'
+    configuration: '$(buildConfiguration)'
+    testSelector: 'testAssemblies'
+    testAssemblyVer2: |
+      **\*UnitTest*.dll
+      **\*Tests*.dll
+      !**\*TestAdapter.dll
+      !**\obj\**
+    searchFolder: '$(System.DefaultWorkingDirectory)'
 
 - task: DotNetCoreCLI@2
   displayName: 'dotnet publish'
