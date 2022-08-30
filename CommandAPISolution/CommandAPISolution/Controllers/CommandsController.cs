@@ -3,6 +3,7 @@ using AutoMapper;
 using CommandAPISolution.Data;
 using CommandAPISolution.Dtos;
 using CommandAPISolution.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 
@@ -24,6 +25,7 @@ public class CommandsController: ControllerBase
     [HttpGet]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [Authorize]
     public ActionResult<IEnumerable<CommandReadDto>> GetAllCommands()
     {
         return Ok(mapper.Map<IEnumerable<CommandReadDto>>( this.commandApiRepo.GetAllCommands()));
