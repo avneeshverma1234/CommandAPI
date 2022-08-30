@@ -22,14 +22,21 @@ npgsqlConnectionStringBuilder.ConnectionString = builder.Configuration.GetConnec
 npgsqlConnectionStringBuilder.Username = builder.Configuration["UserID"];
 npgsqlConnectionStringBuilder.Password = builder.Configuration["Password"];
     
+
 builder.Services.AddDbContext<CommandContext>(opt =>
     opt.UseNpgsql(npgsqlConnectionStringBuilder.ConnectionString));
 
 var app = builder.Build();
 
 
-var service = app.Services.GetService<CommandContext>();
-service.Database.Migrate();
+//var service = app.Services.GetService<CommandContext>();
+//service.Database.Migrate();
+
+IServiceScope serviceScope = app.Services.GetService<IServiceScopeFactory>().CreateScope();
+
+var context = serviceScope.ServiceProvider.GetService<CommandContext>();
+context.Database.Migrate();
+
 
 if (app.Environment.IsDevelopment())
 {
