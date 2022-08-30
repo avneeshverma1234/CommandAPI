@@ -27,7 +27,6 @@ steps:
     msbuildArgs: '/p:DeployOnBuild=true /p:SkipInvalidConfigurations=true'
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
-
 - task: VSTest@2
   inputs:
     platform: '$(buildPlatform)'
