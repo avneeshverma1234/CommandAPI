@@ -14,7 +14,7 @@ variables:
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release
 
-steps:
+
 steps:
 - task: NuGetToolInstaller@1
 
@@ -27,6 +27,7 @@ steps:
     msbuildArgs: '/p:DeployOnBuild=true /p:SkipInvalidConfigurations=true'
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
+
 - task: VSTest@2
   inputs:
     platform: '$(buildPlatform)'
